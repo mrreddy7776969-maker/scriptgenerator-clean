@@ -3,25 +3,83 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FAF8F5;
+  --foreground: #1C1917;
+  --card: #FFFFFF;
+  --card-foreground: #1C1917;
+  --border: #E7E0D5;
+  --muted: #F5F0E8;
+  --muted-foreground: #78716C;
+  --accent: #C9A962;
+  --accent-foreground: #1C1917;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  --background: #0C0C0C;
+  --foreground: #F5F0E8;
+  --card: #141210;
+  --card-foreground: #F5F0E8;
+  --border: #2A2620;
+  --muted: #1A1814;
+  --muted-foreground: #A8A29E;
+  --accent: #C9A962;
+  --accent-foreground: #0C0C0C;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-sm border border-border rounded-xl shadow-premium dark:shadow-premium-dark;
+    background-color: color-mix(in srgb, var(--card) 80%, transparent);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:bg-gold-dark hover:shadow-premium disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium transition-all hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input-field {
+    @apply w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm transition-colors focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20;
+  }
+
+  .skeleton {
+    @apply animate-pulse rounded-lg bg-muted;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Driver.js tour overrides */
+.driver-popover.plotline-tour {
+  @apply bg-card border border-border rounded-xl shadow-premium;
+}
+
+.driver-popover.plotline-tour .driver-popover-title {
+  @apply font-serif text-lg text-foreground;
+}
+
+.driver-popover.plotline-tour .driver-popover-description {
+  @apply text-muted-foreground text-sm;
+}
+
+.driver-popover.plotline-tour button {
+  @apply rounded-lg text-sm;
+}
+
+.driver-popover.plotline-tour .driver-popover-navigation-btns button {
+  @apply bg-gold text-accent-foreground border-none;
 }
