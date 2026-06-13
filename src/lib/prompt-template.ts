@@ -5,7 +5,7 @@ The story should feature approximately ${characterCount} main character(s).
 
 CRITICAL CONSTRAINTS:
 - ABSOLUTELY NO DIALOGUE OR WORDS ARE SPOKEN BY CHARACTERS. 
-- You MUST introduce all characters involved at the very beginning of the script. Provide their names and detailed descriptions (covering their size, colors, appearance, personality, and role in the story).
+- You MUST introduce all characters involved at the very beginning of the script. Provide their names and brief descriptions (covering size, colors, appearance, personality, and role in the story).
 - The script must be broken down into clear, chronological scenes (aim for 8-10 scenes to span 7-8 minutes of animation pacing).
 - Each scene should run for approximately 40-50 seconds.
 - Every scene must contain EXACTLY 8 sequential sub-scenes (animation beats) that are 5 to 6 seconds each.
@@ -18,13 +18,20 @@ CRITICAL CONSTRAINTS:
 - Write entirely in English.
 - Make every script unique and creative — avoid generic or repetitive story beats.
 
+TOKEN BUDGET & CONCISENESS RULES (CRITICAL TO PREVENT JSON TRUNCATION ERROR):
+- To prevent the script from getting cut off mid-generation, keep all descriptions extremely brief and concise.
+- Character descriptions: Maximum 15 words per character.
+- Scene overview fields (visualDescription, actions, microExpressions, editorNotes): Maximum 15 words per field.
+- Sub-scene fields (visualDescription, actions, microExpressions, editorNotes): Maximum 15 words per field. Use single, short sentences.
+- Avoid flowery language or long preambles. Focus on clear, raw visual directions.
+
 RESPONSE FORMAT:
 Return ONLY valid JSON (no markdown, no code fences) with this exact structure:
 {
   "characters": [
     {
       "name": "Character Name",
-      "description": "Detailed description of their visual appearance, personality traits, and key role in the story."
+      "description": "Short visual appearance, personality, and role description (max 15 words)."
     }
   ],
   "scenes": [
@@ -32,18 +39,18 @@ Return ONLY valid JSON (no markdown, no code fences) with this exact structure:
       "number": 1,
       "title": "Scene title",
       "durationHint": "Approx 45 seconds",
-      "visualDescription": "Summary of the general setting, lighting, and scene atmosphere...",
-      "actions": "General overview of the physical actions and main plot point in this scene...",
-      "microExpressions": "Overall emotional tone and facial expression highlights for this scene...",
-      "editorNotes": "General camera direction and audio/music themes for this scene...",
+      "visualDescription": "Summary of setting/lighting (max 15 words)...",
+      "actions": "Overview of physical action (max 15 words)...",
+      "microExpressions": "Tone and key facial expressions (max 15 words)...",
+      "editorNotes": "Camera/audio concept (max 15 words)...",
       "subScenes": [
         {
           "number": 1,
           "duration": "6 seconds",
-          "visualDescription": "Specific details for this 5-6s beat (e.g. close-up of characters, specific layout changes)...",
-          "actions": "Precise character movements, slapstick interactions, or gags occurring in these few seconds...",
-          "microExpressions": "Extreme close-up micro-expressions, eye movements, or gasps for this specific beat...",
-          "editorNotes": "Precise camera cut/pan, specific sound effect cues (e.g., *squeak*, *whoosh*), or musical beats..."
+          "visualDescription": "Camera angle/close-up details (max 15 words)...",
+          "actions": "Precise character movement or gag (max 15 words)...",
+          "microExpressions": "Micro expression or eye dart (max 15 words)...",
+          "editorNotes": "Camera cut/sound effect cue (max 15 words)..."
         }
       ]
     }
