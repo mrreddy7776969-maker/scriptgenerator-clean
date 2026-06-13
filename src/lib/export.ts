@@ -37,20 +37,39 @@ export async function exportAsPdf(script: Script): Promise<void> {
 
   addText("PlotLine — Visual Action Script", 16, true);
   addText(`Theme: ${script.theme} | Setting: ${script.setting}`, 10);
-  addText(`Characters: ${script.characterCount} | Generated: ${new Date(script.createdAt).toLocaleString()}`, 9);
-  y += 5;
+  addText(`Characters Count: ${script.characterCount} | Generated: ${new Date(script.createdAt).toLocaleString()}`, 9);
+  y += 3;
+
+  if (script.characters && script.characters.length > 0) {
+    addText("Characters Involved", 12, true);
+    for (const char of script.characters) {
+      addText(`• ${char.name}: ${char.description}`, 10);
+    }
+    y += 4;
+  }
 
   for (const scene of script.scenes) {
     addText(`Scene ${scene.number}: ${scene.title}`, 12, true);
     if (scene.durationHint) addText(`Duration: ${scene.durationHint}`, 9);
-    addText("Visual Description", 10, true);
-    addText(scene.visualDescription);
-    addText("Actions & Physical Gags", 10, true);
-    addText(scene.actions);
-    addText("Micro-Expressions", 10, true);
-    addText(scene.microExpressions);
-    addText("Editor & Animator Notes", 10, true);
-    addText(scene.editorNotes);
+    
+    addText("Scene Overview", 10, true);
+    addText(`Visual Description: ${scene.visualDescription}`);
+    addText(`Actions & Physical Gags: ${scene.actions}`);
+    addText(`Micro-Expressions: ${scene.microExpressions}`);
+    addText(`Editor & Animator Notes: ${scene.editorNotes}`);
+    y += 2;
+
+    if (scene.subScenes && scene.subScenes.length > 0) {
+      addText("Sub-scenes Beats (5-6 seconds each):", 10, true);
+      for (const sub of scene.subScenes) {
+        addText(`Beat ${sub.number} (${sub.duration})`, 9, true);
+        addText(`Visual: ${sub.visualDescription}`);
+        addText(`Action: ${sub.actions}`);
+        addText(`Expressions: ${sub.microExpressions}`);
+        addText(`Notes: ${sub.editorNotes}`);
+        y += 1;
+      }
+    }
     y += 5;
   }
 
