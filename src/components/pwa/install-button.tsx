@@ -8,7 +8,11 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-export function InstallButton() {
+interface InstallButtonProps {
+  className?: string;
+}
+
+export function InstallButton({ className }: InstallButtonProps = {}) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
@@ -42,10 +46,12 @@ export function InstallButton() {
   if (isInstalled || !isSupported) return null;
 
   return (
-    <button onClick={handleInstall} className="btn-primary !py-2 !px-4 text-xs sm:text-sm">
+    <button
+      onClick={handleInstall}
+      className={className || "btn-primary !py-2 !px-4 text-xs sm:text-sm flex items-center gap-1.5"}
+    >
       <Download className="h-4 w-4" />
-      <span className="hidden sm:inline">Install App</span>
-      <span className="sm:hidden">Install</span>
+      <span>Install App</span>
     </button>
   );
 }
