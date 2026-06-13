@@ -158,29 +158,45 @@ export function scriptToText(script: Script): string {
     `PlotLine Script`,
     `Theme: ${script.theme}`,
     `Setting: ${script.setting}`,
-    `Characters: ${script.characterCount}`,
+    `Characters Count: ${script.characterCount}`,
     `Generated: ${new Date(script.createdAt).toLocaleString()}`,
     "",
     "=".repeat(60),
     "",
   ];
 
+  if (script.characters && script.characters.length > 0) {
+    lines.push("CHARACTERS INVOLVED:");
+    for (const char of script.characters) {
+      lines.push(`- ${char.name}: ${char.description}`);
+    }
+    lines.push("");
+    lines.push("=".repeat(60));
+    lines.push("");
+  }
+
   for (const scene of script.scenes) {
     lines.push(`SCENE ${scene.number}: ${scene.title}`);
     if (scene.durationHint) lines.push(`Duration: ${scene.durationHint}`);
     lines.push("");
-    lines.push("VISUAL DESCRIPTION:");
-    lines.push(scene.visualDescription);
+    lines.push("SCENE OVERVIEW:");
+    lines.push(`  VISUAL DESCRIPTION: ${scene.visualDescription}`);
+    lines.push(`  ACTIONS & PHYSICAL GAGS: ${scene.actions}`);
+    lines.push(`  MICRO-EXPRESSIONS: ${scene.microExpressions}`);
+    lines.push(`  EDITOR & ANIMATOR NOTES: ${scene.editorNotes}`);
     lines.push("");
-    lines.push("ACTIONS & PHYSICAL GAGS:");
-    lines.push(scene.actions);
-    lines.push("");
-    lines.push("MICRO-EXPRESSIONS:");
-    lines.push(scene.microExpressions);
-    lines.push("");
-    lines.push("EDITOR & ANIMATOR NOTES:");
-    lines.push(scene.editorNotes);
-    lines.push("");
+
+    if (scene.subScenes && scene.subScenes.length > 0) {
+      lines.push("  SUB-SCENES (5-6 SECONDS BEATS):");
+      for (const sub of scene.subScenes) {
+        lines.push(`    Beat ${sub.number} (${sub.duration}):`);
+        lines.push(`      Visual: ${sub.visualDescription}`);
+        lines.push(`      Action: ${sub.actions}`);
+        lines.push(`      Expressions: ${sub.microExpressions}`);
+        lines.push(`      Notes: ${sub.editorNotes}`);
+        lines.push("");
+      }
+    }
     lines.push("-".repeat(60));
     lines.push("");
   }
