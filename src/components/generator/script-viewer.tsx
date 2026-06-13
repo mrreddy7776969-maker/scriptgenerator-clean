@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy, Download, FileText } from "lucide-react";
+import { Check, Copy, Download, FileText, Users } from "lucide-react";
 import type { Script } from "@/types";
 import { SceneCard } from "./scene-card";
 import { copyScriptToClipboard, exportAsPdf, exportAsTxt } from "@/lib/export";
@@ -33,7 +33,7 @@ export function ScriptViewer({ script }: ScriptViewerProps) {
   };
 
   return (
-    <div className="space-y-4" id="script-viewer">
+    <div className="space-y-6" id="script-viewer">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="font-serif text-xl">{script.theme}</h2>
@@ -64,6 +64,31 @@ export function ScriptViewer({ script }: ScriptViewerProps) {
           </button>
         </div>
       </div>
+
+      {script.characters && script.characters.length > 0 && (
+        <div className="border border-border/40 bg-muted/20 p-5 rounded-2xl space-y-3 animate-slide-up">
+          <h3 className="text-sm font-semibold tracking-wider uppercase text-gold flex items-center gap-2">
+            <Users className="h-4 w-4" />
+            Characters Cast
+          </h3>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {script.characters.map((char) => (
+              <div
+                key={char.name}
+                className="bg-card/40 border border-border/60 hover:border-gold/30 hover:bg-card/80 transition-all duration-300 p-4 rounded-xl flex items-start gap-3"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold/10 text-gold font-serif font-bold text-sm">
+                  {char.name.slice(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm text-foreground">{char.name}</h4>
+                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{char.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="relative">
         <div className="absolute left-4 top-0 bottom-0 w-px bg-border hidden sm:block" />
