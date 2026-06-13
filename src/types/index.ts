@@ -1,3 +1,17 @@
+export interface Character {
+  name: string;
+  description: string;
+}
+
+export interface SubScene {
+  number: number;
+  duration: string;
+  visualDescription: string;
+  actions: string;
+  microExpressions: string;
+  editorNotes: string;
+}
+
 export interface Scene {
   number: number;
   title: string;
@@ -6,6 +20,7 @@ export interface Scene {
   microExpressions: string;
   editorNotes: string;
   durationHint?: string;
+  subScenes: SubScene[];
 }
 
 export interface Script {
@@ -13,6 +28,7 @@ export interface Script {
   theme: string;
   setting: string;
   characterCount: number;
+  characters: Character[];
   scenes: Scene[];
   createdAt: string;
 }
