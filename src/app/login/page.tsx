@@ -1,16 +1,15 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { Clapperboard, Sparkles } from "lucide-react";
-import { APP_NAME } from "@/lib/constants";
+import { Sparkles } from "lucide-react";
 
 export default function LoginPage() {
   return (
     <div className="flex min-h-screen bg-premium-light dark:bg-premium-dark">
       <div className="hidden lg:flex lg:w-1/2 flex-col justify-center p-12 border-r border-border">
         <div className="max-w-md">
-          <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gold/10">
-            <Clapperboard className="h-7 w-7 text-gold" />
+          <div className="mb-6 flex items-center">
+            <img src="/logo.png" alt="PlotLine Logo" className="h-16 w-auto object-contain rounded-xl border border-gold/10" />
           </div>
           <h1 className="font-serif text-4xl leading-tight mb-4">
             Visual scripts that bring stories to life
@@ -29,8 +28,8 @@ export default function LoginPage() {
 
       <div className="flex flex-1 flex-col items-center justify-center p-6">
         <div className="w-full max-w-sm">
-          <div className="mb-8 text-center lg:text-left">
-            <h2 className="font-serif text-3xl mb-2">{APP_NAME}</h2>
+          <div className="mb-8 text-center lg:text-left flex flex-col items-center lg:items-start">
+            <img src="/logo.png" alt="PlotLine Logo" className="h-14 w-auto object-contain rounded-lg mb-4 border border-gold/10" />
             <p className="text-sm text-muted-foreground">Sign in to start creating</p>
           </div>
 
