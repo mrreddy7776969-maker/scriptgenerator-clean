@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
-  Clapperboard,
   CreditCard,
   History,
   LayoutDashboard,
@@ -13,8 +12,8 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { APP_NAME } from "@/lib/constants";
 import { useUIStore } from "@/lib/stores/ui-store";
+import { InstallButton } from "@/components/pwa/install-button";
 
 type NavItem = {
   href: string;
@@ -56,11 +55,8 @@ export function Sidebar() {
         }`}
       >
         <div className="flex items-center justify-between border-b border-border p-5">
-          <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold/10">
-              <Clapperboard className="h-5 w-5 text-gold" />
-            </div>
-            <span className="font-serif text-xl tracking-tight">{APP_NAME}</span>
+          <Link href="/dashboard" className="flex items-center">
+            <img src="/logo.png" alt="PlotLine Logo" className="h-7 w-auto object-contain rounded" />
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -93,7 +89,8 @@ export function Sidebar() {
           })}
         </nav>
 
-        <div className="border-t border-border p-4">
+        <div className="border-t border-border p-4 space-y-3">
+          <InstallButton className="w-full btn-primary flex items-center justify-center gap-2 py-2 px-4 text-sm font-medium" />
           <p className="text-xs text-muted-foreground">
             Visual scripts for kids&apos; animation
           </p>
